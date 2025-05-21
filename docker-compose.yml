@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  server1:
+    image: kennethreitz/httpbin
+    ports:
+      - "9001:80"
+
+  server2:
+    image: kennethreitz/httpbin
+    ports:
+      - "9002:80"
+
+  server3:
+    image: kennethreitz/httpbin
+    ports:
+      - "9003:80"
