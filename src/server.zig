@@ -2,8 +2,9 @@ const std = @import("std");
 const net = std.net;
 const http = std.http;
 const router = @import("router.zig");
+const Config = @import("config.zig").Config;
 
-pub fn runServer(server: *net.Server,) !void {
+pub fn runServer(server: *net.Server, config: *Config) !void {
     // listener loop
     while (true) {
         // accept requests
@@ -21,7 +22,7 @@ pub fn runServer(server: *net.Server,) !void {
             continue;
         };
 
-        router.handleRequest(&request) catch |err| {
+        router.handleRequest(&request, config) catch |err| {
             std.debug.print("Request errored: {}", .{err});
             continue;
         };

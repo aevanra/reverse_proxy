@@ -14,7 +14,7 @@ pub const Config = struct {
     },
     resources: []Resource,
 
-    pub fn get(arena: *std.heap.ArenaAllocator) !*Config {
+    pub fn get(arena: *std.heap.ArenaAllocator) !Config {
         const allocator = arena.allocator();
 
         const file = try std.fs.cwd().openFile("config.json", .{});
@@ -26,7 +26,6 @@ pub const Config = struct {
         var parsed = try json.parseFromSlice(Config, allocator, source, .{});
         defer parsed.deinit();
 
-        return &parsed.value;
-
+        return parsed.value;
     }
 };

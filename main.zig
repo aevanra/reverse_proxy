@@ -8,13 +8,13 @@ pub fn main() !void {
     var arena = std.heap.ArenaAllocator.init(gpa);
     defer arena.deinit();
 
-    const config = try Config.get(&arena);
+    var config = try Config.get(&arena);
     std.debug.print("Host: {s}, Port: {}\n", .{ config.server.host, config.server.listen_port });
     const address = try net.Address.parseIp4(config.server.host, config.server.listen_port);
 
     var svr = try address.listen(net.Address.ListenOptions{});
 
-    try server.runServer(&svr);
+    try server.runServer(&svr, &config);
 }
 
 
